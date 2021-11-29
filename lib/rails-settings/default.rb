@@ -38,7 +38,7 @@ module RailsSettings
 
     def initialize
       content = open(self.class.source_path).read
-      hash = content.empty? ? {} : YAML.load(ERB.new(content).result).to_hash
+      hash = content.empty? ? {} : YAML.load(ERB.new(content).result, aliases: true).to_hash
       hash = hash[Rails.env] || {}
       replace hash
     end
