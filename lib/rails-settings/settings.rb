@@ -8,7 +8,7 @@ module RailsSettings
 
     # get the value field, YAML decoded
     def value
-      YAML.load(self[:value]) if self[:value].present?
+      YAML.load(self[:value], aliases: true) if self[:value].present?
     end
 
     # set the value field, YAML encoded
