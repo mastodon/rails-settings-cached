@@ -4,7 +4,14 @@ module RailsSettings
   class Default < ::Hash
     class MissingKey < StandardError; end
 
+    if Psych::VERSION.split('.').first >= '4'
+      YAML_load_opts = { aliases: true }
+    else
+      YAML_load_opts = {}
+    end
+
     class << self
+
       def enabled?
         source_path && File.exist?(source_path)
       end
@@ -38,7 +45,7 @@ module RailsSettings
 
     def initialize
       content = open(self.class.source_path).read
-      hash = content.empty? ? {} : YAML.load(ERB.new(content).result, aliases: true).to_hash
+      hash = content.empty? ? {} : YAML.load(ERB.new(content).result, **YAML_load_opts).to_hash
       hash = hash[Rails.env] || {}
       replace hash
     end

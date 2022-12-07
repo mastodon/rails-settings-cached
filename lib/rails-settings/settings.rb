@@ -1,5 +1,11 @@
 module RailsSettings
   class Settings < ActiveRecord::Base
+    unless YAML.respond_to?(:unsafe_load)
+      class << YAML
+        alias :unsafe_load :load
+      end
+    end
+
     self.table_name = table_name_prefix + 'settings'
 
     class SettingNotFound < RuntimeError; end
