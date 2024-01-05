@@ -1,5 +1,8 @@
 module RailsSettings
   class Base < Settings
+    after_commit :rewrite_cache, on: %i(create update)
+    after_commit :expire_cache, on: %i(destroy)
+
     def rewrite_cache
       Rails.cache.write(cache_key, value)
     end
