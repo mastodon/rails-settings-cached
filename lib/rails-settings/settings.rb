@@ -10,7 +10,7 @@ module RailsSettings
 
     class SettingNotFound < RuntimeError; end
 
-    belongs_to :thing, polymorphic: true
+    belongs_to :thing, polymorphic: true, required: false
 
     # get the value field, YAML decoded
     def value
