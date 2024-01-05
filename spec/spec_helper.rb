@@ -46,9 +46,6 @@ def count_queries(&block)
   count
 end
 
-# run cache initializers
-RailsSettings::Railtie.initializers.each(&:run)
-
 # ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActiveRecord::Base.establish_connection adapter: 'sqlite3', database: ':memory:'
 # ActiveRecord::Base.configurations = true
